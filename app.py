@@ -68,7 +68,7 @@ if page == "Overview":
             px.pie(counts, values="Customers", names="Status", hole=.58,
                    color="Status", color_discrete_map={"Stayed": "#4338ca", "Churned": "#f97316"},
                    title="Customer retention"),
-            use_container_width=True,
+            width="stretch",
         )
     with right:
         contract = df.assign(Status=df["Churn"].map({0: "Stayed", 1: "Churned"}))
@@ -76,11 +76,11 @@ if page == "Overview":
             px.histogram(contract, x="Contract", color="Status", barmode="group",
                          color_discrete_map={"Stayed": "#4338ca", "Churned": "#f97316"},
                          title="Churn by contract type"),
-            use_container_width=True,
+            width="stretch",
         )
 
     st.subheader("Customer data sample")
-    st.dataframe(df.head(12), use_container_width=True, hide_index=True)
+    st.dataframe(df.head(12), width="stretch", hide_index=True)
 
 elif page == "Churn Analysis":
     st.subheader("Explore the drivers of customer churn")
@@ -97,17 +97,17 @@ elif page == "Churn Analysis":
                      title=f"Churn rate by {dimension}", color="ChurnRate",
                      color_continuous_scale=["#c7d2fe", "#4338ca"])
         fig.update_layout(yaxis_title="Churn rate (%)", coloraxis_showscale=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     a, b = st.columns(2)
     with a:
         st.plotly_chart(px.box(filtered, x="Churn", y="MonthlyCharges", color="Churn",
                                labels={"Churn": "Churned"}, title="Monthly charges vs churn",
-                               color_discrete_sequence=["#4338ca", "#f97316"]), use_container_width=True)
+                               color_discrete_sequence=["#4338ca", "#f97316"]), width="stretch")
     with b:
         st.plotly_chart(px.histogram(filtered, x="Tenure", color="Churn", nbins=20, barmode="overlay",
                                      title="Tenure distribution", opacity=.7,
-                                     color_discrete_sequence=["#4338ca", "#f97316"]), use_container_width=True)
+                                     color_discrete_sequence=["#4338ca", "#f97316"]), width="stretch")
 
 elif page == "Predict Customer":
     st.subheader("Predict an individual customer's churn risk")
@@ -126,7 +126,7 @@ elif page == "Predict Customer":
             senior = st.selectbox("Senior citizen", ["No", "Yes"])
             partner = st.selectbox("Has partner", ["No", "Yes"])
             paperless = st.selectbox("Paperless billing", ["Yes", "No"])
-        submitted = st.form_submit_button("Predict churn risk", use_container_width=True)
+        submitted = st.form_submit_button("Predict churn risk", width="stretch")
 
     if submitted:
         customer = {
@@ -149,17 +149,17 @@ elif page == "Model Performance":
     st.subheader("Model evaluation")
     metrics = pd.DataFrame(model_bundle["metrics"])
     st.dataframe(metrics.style.format({"Accuracy": "{:.3f}", "Precision": "{:.3f}", "Recall": "{:.3f}", "F1": "{:.3f}", "ROC-AUC": "{:.3f}"}),
-                 use_container_width=True, hide_index=True)
+                 width="stretch", hide_index=True)
 
     left, right = st.columns(2)
     with left:
         st.plotly_chart(px.bar(metrics.melt(id_vars="Model", var_name="Metric", value_name="Score"),
                                x="Model", y="Score", color="Metric", barmode="group",
-                               title="Model comparison", range_y=[0, 1]), use_container_width=True)
+                               title="Model comparison", range_y=[0, 1]), width="stretch")
     with right:
         importance = pd.DataFrame(model_bundle["feature_importance"], columns=["Feature", "Importance"]).head(12)
         st.plotly_chart(px.bar(importance.sort_values("Importance"), x="Importance", y="Feature",
                                orientation="h", title="Top churn drivers",
-                               color="Importance", color_continuous_scale="Purples"), use_container_width=True)
+                               color="Importance", color_continuous_scale="Purples"), width="stretch")
 
     st.info(f"Selected model: **{model_bundle['selected_model']}**. Data is synthetic and intended for portfolio demonstration.")
