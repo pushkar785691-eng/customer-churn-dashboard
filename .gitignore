@@ -1,6 +1,10 @@
 .venv/
 __pycache__/
 *.py[cod]
-.streamlit/secrets.toml
+.ipynb_checkpoints/
 .DS_Store
-Thumbs.db
+.idea/
+.vscode/
+.streamlit/secrets.toml
+.tmp/
+
