@@ -1,0 +1,13 @@
+{
+  "dataset_rows": 7043,
+  "train_rows": 5634,
+  "test_rows": 1409,
+  "positive_rate": 0.2653698707936959,
+  "selected_model": "Logistic Regression",
+  "selection_method": "Highest mean ROC-AUC in stratified 5-fold CV on training data",
+  "test_roc_auc": 0.8414658089849907,
+  "test_accuracy": 0.7381121362668559,
+  "test_precision": 0.504302925989673,
+  "test_recall": 0.7834224598930482,
+  "random_state": 42
+}

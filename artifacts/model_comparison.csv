@@ -1,0 +1,3 @@
+model,cv_roc_auc_mean,cv_roc_auc_std
+Logistic Regression,0.8459397885077282,0.01239258581309215
+Random Forest,0.843381348678926,0.008423376586494774
